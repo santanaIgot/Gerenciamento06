@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "TB_CP06_ALUNO")
 @Getter@Setter
@@ -21,9 +24,12 @@ public class Aluno {
     private String email;
 
     @ManyToMany
-    @Column(name = "curso")
-    @JoinColumn(name = "cd_curso")
-    private Curso curso;
+    @JoinTable(
+            name = "TB_CP06_ALUNO_CURSO",
+            joinColumns = @JoinColumn(name = "id_aluno"),
+            inverseJoinColumns = @JoinColumn(name = "cd_curso")
+    )
+    private Set<Curso> cursos;
 
 
 }
