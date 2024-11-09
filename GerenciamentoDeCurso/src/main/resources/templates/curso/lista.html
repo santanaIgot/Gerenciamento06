@@ -18,58 +18,55 @@
     <div th:if="!${#strings.isEmpty(msg)}" class="alert alert-success">
         <span th:text="${msg}"></span>
     </div>
-    <h1>LISTA DE LIVROS</h1>
+    <h1>LISTA DE CURSOS</h1>
     <table class="table">
 
         <thead>
         <tr>
             <th>Nome</th>
             <th>Descrição</th>
-            <th>Atração</th>
-            <th>Localização</th>
-            <th>Status</th>
-            <th>Data</th>
+            <th>Carga Horaria</th>
         </tr>
         </thead>
 
         <tbody>
 
-        <tr th:each="event : ${curso}">
-            <td th:text="${curso.nome}"></td>
+        <tr th:each="curso : ${cursos}">
+            <td th:text="${curso.nomeCurso}"></td>
             <td th:text="${curso.descricao}"></td>
             <td th:text="${curso.cargaHoraria}"></td>
 
-
-
             <td>
-                <a th:href="@{/evento/editar/}+${event.id}" class="btn btn-outline-primary">Editar</a>
+                <a th:href="@{/curso/editar/{id}(id=${curso.id})}" class="btn btn-outline-primary">Editar</a>
+            </td>
+            <td>
+                <!-- Link para editar o curso -->
+                <a th:href="@{/curso/editar/}+${curso.id}" class="btn btn-sm btn-primary">Editar</a>
 
-
-                <button th:onclick="|eventoId.value = ${event.id}|" type="button" class="btn btn-sm btn-danger "
-                        data-bs-toggle="modal" data-bs-target="#modalExcluir">
+                <!-- Botão para abrir o modal de exclusão -->
+                <button th:onclick="|cursoId.value = ${curso.id}|" type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluirCurso">
                     Excluir
                 </button>
             </td>
+
         </tr>
         </tbody>
     </table>
 
 
-
-
-    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
+    <div class="modal fade" id="modalExcluirCurso" tabindex="-1" aria-labelledby="modalExcluirCursoLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalExcluirLabel"> Confirmação</h5>
+                    <h5 class="modal-title" id="modalExcluirCursoLabel">Confirmação de Exclusão</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Deseja realmente excluir o livro?
+                    Deseja realmente excluir o curso?
                 </div>
                 <div class="modal-footer">
-                    <form th:action="@{/evento/excluir}" method="post">
-                        <input type="hidden" id="eventoId" name="idEvent">
+                    <form th:action="@{/curso/excluir}" method="post">
+                        <input type="hidden" id="cursoId" name="idCurso">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
                         <button type="submit" class="btn btn-danger">Sim</button>
                     </form>
@@ -77,6 +74,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 </body>

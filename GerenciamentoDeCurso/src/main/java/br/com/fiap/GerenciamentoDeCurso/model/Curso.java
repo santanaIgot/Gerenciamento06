@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Curso {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "nm_curso")
